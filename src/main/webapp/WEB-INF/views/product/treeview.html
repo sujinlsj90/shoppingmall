@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#spreadBtn01").click(function(){
+                if($("#hiddenList01").is(":visible")){
+                    $("#hiddenList01").slideUp();
+                }else{
+                    $("#hiddenList01").slideDown();
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            $("#spreadBtn2").click(function(){
+                if($("#hiddenList02").is(":visible")){
+                    $("#hiddenList02").slideUp();
+                }else{
+                    $("#hiddenList02").slideDown();
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            $("#spreadBtn3").click(function(){
+                if($("#hiddenList03").is(":visible")){
+                    $("#hiddenList03").slideUp();
+                }else{
+                    $("#hiddenList03").slideDown();
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            $("#spreadBtn11").click(function(){
+                if($("#hiddenList11").is(":visible")){
+                    $("#hiddenList11").slideUp();
+                } else {
+                    $("#hiddenList11").slideDown();
+                }
+            });
+            $('#spreadBtn12').click(function(){
+                if($('#hiddenList12').is(':visible')){
+                    $('#hiddenList12').slideUp();
+                } else {
+                    $('#hiddenList12').slideDown();
+                }
+            });
+            $('#spreadBtn13').click(function(){
+                if($('#hiddenList13').is(':visible')){
+                    $('#hiddenList13').slideUp();
+                } else {
+                    $('#hiddenList13').slideDown();
+                }
+            });
+            $('#spreadBtn14').click(function(){
+                if($('#hiddenList14').is(':visible')){
+                    $('#hiddenList14').slideUp();
+                } else {
+                    $('#hiddenList14').slideDown();
+                }
+            })
+            // $("#hiddenList11").click(function(){
+            //     if($("#hiddenList11").is(":visible")){
+            //         $("#hiddenList11").slideUp();
+            //     }else{
+            //         $("#hiddenList11").slideDown();
+            //     }
+            // });
+        });
+
+    </script>
+
+    <style>
+        *{margin: 0;padding: 0;text-decoration: none;list-style: none;}
+        .wrap{width: 1200px;margin: 0 auto;padding: 100px;}
+        /* index_1 */
+        .index_1{margin-bottom: 10px;}
+
+        /* index_2 */
+        .index_2{margin-bottom: 10px;}
+
+        /* index_3 */
+        .index_3{width:100%;height: 500px;display: flex;justify-content: space-between;margin-bottom: 100px;}
+        .index_3 .cosmo{ width: 45%;height: 100%; border: 1px solid lightgray;border-radius: 30px;padding: 20px;overflow:scroll;}
+        .index_3 .cosmo li{margin-left: 20px;}
+        .index_3 .cosmo li a{color: black; display: block;}
+        .index_3 .cosmo button{
+            width: 60px;height: 20px;border: 1px solid white;display: block;
+            border-radius:15px;}
+        .index_3 .cosmo button:hover{transition: all 0.3s;background:lightgray;}
+        .index_3 .cosmo_2{width: 45%;height: 100%; border: 1px solid lightgray;border-radius: 30px;padding: 20px;}
+        .index_3 .cosmo_2 ul{display: flex; justify-content: space-between;margin-top: 10px;}
+        .index_3 .cosmo_2 li{width: 10.7%;}
+        .index_3 .cosmo_2 li input{
+            width: 60px;height: 30px;border: 1px solid white;display: block;
+            float:left; border-radius:15px;margin-left: -15px;
+        }    
+        .index_3 .cosmo_2 li input:hover{transition: all 0.3s;background:lightgray;}
+
+        /* index_4 */
+        .index_4 {display: flex;margin: auto 0;justify-content: center;}
+        .index_4 input{
+            width: 100px;height: 50px;border: 1px solid white;display: block;
+            float:left; border-radius:15px;}
+        .index_4 input:hover{transition: all 0.3s;background:lightgray;}
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="index_1">
+            양식선택
+            <select name="양식선택" id="s_box">
+                <option selected disabled>양식을 선택해주세요.</option>
+                <option value="기안문" submit="기안문">기안문</option>
+                <option value="회의록" submit="회의록">회의록</option>
+                <option value="기안문" submit="기안문">기안문</option>
+                <option value="기안문" submit="기안문">기안문</option>
+                <option value="기안문" submit="기안문">기안문</option>
+            </select>
+        </div>
+        <div class="index_2">
+            카테고리선택
+            <select name="카테고리선택" id="c_box">
+                <option selected disabled>카테고리를 선택해주세요.</option>
+                <option value="기안문" submit="기안문">기안문</option>
+                <option value="회의록" submit="회의록">회의록</option>
+                <option value="기안문" submit="기안문">기안문</option>
+                <option value="기안문" submit="기안문">기안문</option>
+                <option value="기안문" submit="기안문">기안문</option>
+            </select>
+        </div>
+        <div class="index_3">
+            <div class="cosmo">
+                <h3>결제라인 선택</h3>
+                <button id="spreadBtn01" class="btn1">영역본부</button>
+                <ul id="hiddenList01" class="section">
+                    <li id="spreadBtn11">
+                        <a href="#">예시1</a>
+                        <ul id="hiddenList11" class="btn1">
+                            <li><a href="http://naver.com">개인정보</a></li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul>     
+                    </li>
+                    <li id="spreadBtn12">
+                        <a href="#">예시1</a>
+                        <ul id="hiddenList12" class="btn1">
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul> 
+                    </li>
+                    <li  id="spreadBtn13">
+                        <a href="#">예시1</a>
+                        <ul id="hiddenList13" class="btn1">
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul> 
+                    </li>
+                    <li  id="spreadBtn14">
+                        <a href="#">예시1</a>
+                        <ul id="hiddenList14" class="btn1">
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul> 
+                    </li>
+                </ul>
+                
+                <button id="spreadBtn2" class="btn2">인사부</button>
+                <ul id="hiddenList02" class="section">
+                    <li>
+                        <ul>
+                            <a href="#">예시</a>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul> 
+                    </li>
+                    <li>
+                        <ul>
+                            <a href="#">예시</a>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul> 
+                    </li>
+                    <li>
+                        <ul>
+                            <a href="#">예시</a>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul> 
+                    </li>
+                    <li>
+                        <ul>
+                            <a href="#">예시</a>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                            <li>개인정보</li>
+                        </ul> 
+                    </li>
+                </ul>
+                
+                <button id="spreadBtn3" class="btn3">마케팅부</button>
+                <ul id="hiddenList03" class="section">
+                    <li><a href="#">예시</a></li>
+                    <li><a href="#">예시</a></li>
+                    <li><a href="#">예시</a></li>
+                </ul>   
+         
+            </div>
+            <div class="cosmo_2">
+             <h3>결제선 리스트</h3>
+                <ul>
+                    <li>순번</li>
+                    <li>성명</li>
+                    <li>직위</li>
+                    <li>부서</li>
+                    <li>결제유형</li>
+                    <li>삭제</li>
+                </ul>
+                <ul>
+                    <li>1</li>
+                    <li>홍길동</li>
+                    <li>팀장</li>
+                    <li>영업본부</li>
+                    <li>
+                        <select name="양식선택" id="cosmo_box">
+                            <option selected disabled>선택</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="회의록" submit="회의록">회의록</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="reset" id="reset" value="삭제">
+                    </li>
+                </ul>
+                <ul>
+                    <li>2</li>
+                    <li>홍길동</li>
+                    <li>팀장</li>
+                    <li>영업본부</li>
+                    <li>
+                        <select name="양식선택" id="cosmo_box">
+                            <option selected disabled>선택</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="회의록" submit="회의록">회의록</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="reset" id="reset" value="삭제">
+                    </li>
+                </ul>
+                <ul>
+                    <li>3</li>
+                    <li>홍길동</li>
+                    <li>팀장</li>
+                    <li>영업본부</li>
+                    <li>
+                        <select name="양식선택" id="cosmo_box">
+                            <option selected disabled>선택</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="회의록" submit="회의록">회의록</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="reset" id="reset" value="삭제">
+                    </li>
+                </ul>
+                <ul>
+                    <li>4</li>
+                    <li>홍길동</li>
+                    <li>팀장</li>
+                    <li>영업본부</li>
+                    <li>
+                        <select name="양식선택" id="cosmo_box">
+                            <option selected disabled>선택</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="회의록" submit="회의록">회의록</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="reset" id="reset" value="삭제">
+                    </li>
+                </ul>
+                <ul>
+                    <li>5</li>
+                    <li>홍길동</li>
+                    <li>팀장</li>
+                    <li>영업본부</li>
+                    <li>
+                        <select name="양식선택" id="cosmo_box">
+                            <option selected disabled>선택</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="회의록" submit="회의록">회의록</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="reset" id="reset" value="삭제">
+                    </li>
+                </ul>
+                <ul>
+                    <li>6</li>
+                    <li>홍길동</li>
+                    <li>팀장</li>
+                    <li>영업본부</li>
+                    <li>
+                        <select name="양식선택" id="cosmo_box">
+                            <option selected disabled>선택</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="회의록" submit="회의록">회의록</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="reset" id="reset" value="삭제">
+                    </li>
+                </ul>
+                <ul>
+                    <li>7</li>
+                    <li>홍길동</li>
+                    <li>팀장</li>
+                    <li>영업본부</li>
+                    <li>
+                        <select name="양식선택" id="cosmo_box">
+                            <option selected disabled>선택</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="회의록" submit="회의록">회의록</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                            <option value="기안문" submit="기안문">기안문</option>
+                        </select>
+                    </li>
+                    <li>
+                        <input type="reset" id="reset" value="삭제">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="index_4">
+            <input type="submit" id="submit" value="확인">
+            <input type="reset" id="reset" value="취소">
+        </div>
+    </div>
+
+    
+</body>
+</html>

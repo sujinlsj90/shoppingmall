@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.pj_117_lsj.dao.ProductSaleDAO">  <!-- namespace="패키지명.인터페이스" -->
+	<!-- ![CDATA[ : Character Data의 의미: 면접
+		 CDATA영역에 작성된 특수문자 데이터는 단순한 문자데이터(Character Data)로 인식하므로
+		 XML 파서기가 처리하지 않고, 데이터베이스에 그대로 전달함으로써 에러가 발생하지 않도록 한다
+		 즉, <, >와 같은 부등호를 xml태그로 인식하지 않고, 단순 문자로 인식(부등호로 인식)하도록 한다
+	-->
+
+	<!--상품판매목록 --> 
+	<select id = "productSaleList" parameterType = "String" resultType = "com.spring.pj_117_lsj.dto.ProductDTO">
+		SELECT * 
+		FROM (SELECT A.*, rownum as rn 
+				FROM (SELECT * FROM mvc_product_tbl 
+				ORDER BY pdNo DESC)A) 
+				WHERE status = '판매중'
+				AND category = #{category}
+	</select>
+	
+ 	<!-- 상품상세 --> 
+	<select id = "getSaleDetail" parameterType = "int" resultType = "com.spring.pj_117_lsj.dto.ProductDTO">
+		SELECT * FROM mvc_product_tbl WHERE pdNo = #{num}
+	</select>
+	
+ 	
+ 	<!-- 장바구니 체크 -> 업데이트  -->
+	<select id = "checkCart"  parameterType = "com.spring.pj_117_lsj.dto.CartDTO" resultType = "int">
+		SELECT COUNT(*) FROM mvc_cartlist_tbl
+		WHERE customerId = #{customerId} And pdNo = #{pdNo} And cartOption = #{cartOption}
+	</select>
+	
+	<!-- 장바구니업데이트 -->
+	<update id = "checkCart_update" parameterType = "com.spring.pj_117_lsj.dto.CartDTO">
+	<![CDATA[
+		UPDATE mvc_cartlist_tbl 
+		SET cartQuantity = cartQuantity + #{cartQuantity}, cartTotal = cartTotal + #{cartTotal} 
+		WHERE customerId = #{customerId} And pdNo = #{pdNo} And cartOption = #{cartOption}
+		]]>
+	</update>
+	
+	<!-- 장바구니 담기 -->
+	<insert id = "cartInsert" parameterType="com.spring.pj_117_lsj.dto.CartDTO">
+		INSERT INTO mvc_cartlist_tbl (pdNo, customerId, cartOption, cartQuantity, cartTotal, cartDate)
+			 VALUES (#{pdNo}, #{customerId}, #{cartOption}, #{cartQuantity}, #{cartTotal}, sysdate)
+	</insert>
+	
+	<!-- 장바구니 리스트 -->
+	<select id = "cartList" parameterType = "String" resultType = "com.spring.pj_117_lsj.dto.CartDTO">
+		SELECT c.*, p.* 
+		FROM mvc_cartlist_tbl c 
+		JOIN mvc_product_tbl p 
+		ON c.pdNo = p.pdNo 
+		WHERE customerId = #{customerId} 
+		ORDER BY cartNo DESC
+	</select>
+ 
+	
+	<!-- 장바구니 수정(전체, 개별 모두적용) -->
+	<update id = "cartUpdate" parameterType = "com.spring.pj_117_lsj.dto.CartDTO">
+		UPDATE mvc_cartlist_tbl
+		SET cartQuantity = #{cartQuantity}, cartTotal = #{cartTotal} WHERE cartNo = #{cartNo} 
+	</update>
+	
+	<!-- 장바구니 삭제 체크박스 -->
+	<delete id = "cartdelete" parameterType = "int">
+		DELETE mvc_cartlist_tbl WHERE cartNo = #{cartNo}
+	</delete>
+	
+	<!-- 장바구니 전체목록삭제 -->
+	<delete id = "deleteCart" parameterType = "String">
+		DELETE FROM mvc_cartlist_tbl WHERE customerId = #{customerId}
+	</delete>
+	
+	<!-- 장바구니 -> 구매목록으로 이동 -->
+	<insert id = "chkoutInsert" parameterType="int">
+		INSERT INTO mvc_chkout_tbl (pdNo, customerId, chkoutOption, chkoutQuantity, chkoutTotal, chkout) 
+				VALUES ((select pdNo from mvc_cartlist_tbl where cartNo = #{cartNo}), 
+						(select customerId from mvc_cartlist_tbl where cartNo = #{cartNo}), 
+						(select cartoption from mvc_cartlist_tbl where cartNo = #{cartNo}), 
+						(select cartquantity from mvc_cartlist_tbl where cartNo = #{cartNo}), 
+						(select carttotal from mvc_cartlist_tbl where cartNo = #{cartNo}), sysdate)
+	</insert>
+	
+	
+	<!-- 구매하기 체크 -> 업데이트  -->
+	<select id = "checkChkOutlist"  parameterType = "com.spring.pj_117_lsj.dto.CheckOutDTO" resultType = "int">
+		SELECT COUNT(*) FROM mvc_chkout_tbl 
+						WHERE customerId = #{customerId} 
+						And pdNo = #{pdNo} And chkoutOption = #{chkoutOption}  
+	</select>
+	
+	<!-- 구매하기 업데이트 -->
+	<update id = "checkChkOutlist_update" parameterType = "com.spring.pj_117_lsj.dto.CheckOutDTO">
+	<![CDATA[
+		UPDATE mvc_chkout_tbl
+		SET chkoutQuantity = chkoutQuantity + #{chkoutQuantity}, chkoutTotal = chkoutTotal + #{chkoutTotal} 
+		WHERE customerId = #{customerId} And pdNo = #{pdNo} And chkoutOption = #{chkoutOption}
+		]]>
+	</update>
+		
+	<!-- 바로구매 -->
+	<insert id = "chkoutInsert2" parameterType="com.spring.pj_117_lsj.dto.CheckOutDTO">
+		INSERT INTO mvc_chkout_tbl (pdNo, customerId, chkoutOption, chkoutQuantity, chkoutTotal, chkout) 
+		VALUES(#{pdNo}, #{customerId}, #{chkoutOption}, #{chkoutQuantity}, #{chkoutTotal}, sysdate)
+	</insert>
+	
+	
+	<!--구매하기 목록 --> 
+	<select id = "checkOutList" parameterType = "String" resultType = "com.spring.pj_117_lsj.dto.CheckOutDTO">
+		SELECT c.*, p.*, cu.name cusName, cu.hp cusPhone, cu.address cusAddress
+		FROM mvc_chkout_tbl c 
+		JOIN mvc_product_tbl p 
+		ON c.pdNo = p.pdNo 
+		JOIN mvc_customer_tbl cu 
+		ON cu.id = c.customerId 
+		WHERE customerId = #{customerId} 
+		ORDER BY chkoutNo DESC
+	</select>
+	
+	<!-- 구매하기 삭제 체크박스 -->
+	<delete id = "chkOutDelete" parameterType = "int">
+		DELETE FROM mvc_chkout_tbl WHERE chkoutNo = #{chkoutNo} 
+	</delete>
+	
+	<!-- 구매하기=>구매목록-->
+	<insert id = "OrderlistInsert" parameterType="int">
+		INSERT INTO mvc_orderList_tbl (customerId, pdNo, orderOption, orderQuantity, shipAddress, orderTotal, orderState, orderDate)  
+			VALUES ((select customerId from mvc_chkout_tbl where chkoutNo = #{chkoutNo}),  
+			        (select pdNo from mvc_chkout_tbl where chkoutNo = #{chkoutNo}),  
+			        (select chkoutOption from mvc_chkout_tbl where chkoutNo = #{chkoutNo}), 
+			        (select chkoutQuantity from mvc_chkout_tbl where chkoutNo = #{chkoutNo}),
+			        (select m.address from mvc_chkout_tbl c join mvc_customer_tbl m on c.customerId = m.id where chkoutNo = #{chkoutNo}), 
+			        (select chkoutTotal from mvc_chkout_tbl where chkoutNo = #{chkoutNo}), 
+			        '주문완료', sysdate)
+	</insert>
+	
+	<!-- 주문목록 비우기 -->
+	<delete id = "deletechkOutAll" parameterType = "String">
+		DELETE FROM mvc_chkout_tbl WHERE customerId = #{customerId}
+	</delete>
+
+</mapper>    

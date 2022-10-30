@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+/*join.css = login.css*/
+
+#container_2 {
+	width: 100%;
+	margin: 0 auto;
+}
+
+#contents {
+	max-width: 1240px;
+	min-width: 1240px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#section1 {
+	padding: 10px 20px 20px 0;
+	border-botton: 5px solid #B1AEB7;
+}
+
+#section2 {
+	padding: 10px 20px 20px 0;
+	border-bottom: 5px solid #B1AEB7;
+}
+
+#s2_inner {
+	width: 100%;
+}
+
+
+
+.join {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: auto;
+	margin: 40px 10px;
+	height: auto;
+}
+
+.join th{
+	font-size: 15px;
+	font-weight: bold;
+	width: 140px;
+	height: 40px;
+	text-align: left;
+	padding-right: 10px; /*오른쪽여백 */
+	padding-left: 20px; 
+	border-bottom: 1px solid #ccc;
+	background: whitesmoke;
+	margin-right: 5px;
+	}
+
+.join td{
+	width: 450px;
+	padding: 5px 0 5px 5px; /* 위쪽 오른쪽 아래쪽 왼쪽 */
+	border-bottom: 1px solid #ccc;
+
+}
+
+input{
+	/* font-family */
+	padding: 5px 5px;
+}
+
+.input{
+	width: 300px;
+	height: 30px;
+	border: 1px solid gray;
+	box-sizing: border-box;
+	padding: 5px 0 5px 5px; 
+}
+
+.button_login {
+  background: #000000;
+  box-shadow: none;
+  color: #ffffff;
+  display: inline-block;
+  height: 35px;
+  line-height: 30px;
+  padding: 0 22px;
+  text-transform: uppercase;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+
+/* //-------------------
+ */
+
+.table_desc {
+  border: 1px solid #ebebeb;
+  margin-bottom: 70px;
+  margin-top: 2px;
+}
+@media only screen and (max-width: 767px) {
+  .table_desc {
+    margin-bottom: 60px;
+  }
+  .table_desc .join_page table tr th {
+  color: #242424;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: capitalize;
+  padding: 10px;
+  text-align: right;
+  font-family: '맑은고딕';
+  }
+	
+  .table_desc .join_page table tr td{
+	  text-align: left;
+	  padding: 8px;
+	  font-family: '맑은고딕';
+  }
+  .table_desc .join_page table tr td input{
+	  width: 60%;
+  }
+
+
+}
+
+.table_desc .join_page table {
+  width: 100%;
+}
+
+.table_desc .join_page table tr{
+  text-align: left;
+  padding: 10px;
+}
+
+.table_desc .join_page table tr th {
+  
+  width: 400px;
+  color: #242424;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+  padding: 10px;
+  text-align: right;
+  font-family: '맑은고딕';
+}
+
+.table_desc .join_page table tr td{
+  text-align: left;
+  padding: 10px;
+  font-family: '맑은고딕';
+}
+
+.join_btn {
+  text-align: center;
+}
+
+.join_btn button {
+  background-color: #cecece;
+}
+
+
+#join_box {
+	  float: center;
+      width: 400px;
+      height: 200px;
+      margin: 10px;
+      border: 1px solid #ccc;   /* 회색 */
+      background-color: linen;
+      color: #c67100;   /* 브라운 */
+      padding: 30px;   /* 안쪽 여백 */
+      text-align: center;   /* 글자 : 가운데정렬 */
+   }

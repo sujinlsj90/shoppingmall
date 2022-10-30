@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.pj_117_lsj.dao.MyAccountDAO">  <!-- namespace="패키지명.인터페이스" -->
+
+	<!--구매목록 --> 
+	<select id = "Orderlist" parameterType = "String" resultType = "com.spring.pj_117_lsj.dto.MyAccountDTO">
+		SELECT o.*, p.*, cu.*  
+		FROM mvc_orderList_tbl o 
+		join mvc_product_tbl p on o.pdNo = p.pdNo 
+		join mvc_customer_tbl cu on cu.id = o.customerId 
+		WHERE customerId = #{customerId} ORDER BY orderNo DESC
+	</select>
+	
+	<!-- 환불신청 -->
+	<update id = "refundRequest" parameterType="int">
+		UPDATE mvc_outsold_tbl SET soldState = '환불신청' WHERE soldNo = #{soldNo}
+	</update>
+	
+	<!-- 환불목록에 status '환불신청'으로 저장 -->
+	<insert id ="refundInsert"  parameterType="int">
+		INSERT INTO mvc_refund_tbl (customerId, pdNo, refundState, refundTotal, refundQuantity, refundDate) 
+		VALUES ((select customerId from mvc_outsold_tbl where soldNo = #{soldNo}), 
+		(select pdNo from mvc_outsold_tbl where soldNo = #{soldNo}), 
+		'환불신청', 
+		(select soldTotal from mvc_outsold_tbl where soldNo = #{soldNo}), 
+		(select soldQuantity from mvc_outsold_tbl where soldNo = #{soldNo}),
+		sysdate)
+	</insert>
+	
+	<!-- 환불목록 전체 확인 -->
+	<select id = "checkRefundList" parameterType="String" resultType="com.spring.pj_117_lsj.dto.RefundDTO">
+		SELECT r.*, p.*, cu.*  
+		FROM mvc_refund_tbl r  
+		join mvc_product_tbl p on r.pdNo = p.pdNo 
+		join mvc_customer_tbl cu on cu.id = r.customerId  
+		WHERE customerId = #{customerId} ORDER BY refundNo DESC
+	</select>
+	
+	<!-- 구매리스트 select -->
+	<select id = "checkOrderList" parameterType="int" resultType="string">
+		SELECT soldState FROM mvc_outsold_tbl WHERE soldNo = #{soldNo}
+	</select>
+	
+	<!-- 구매완료 리스트 -->
+	<select id = "outSoldList" parameterType = "String" resultType="com.spring.pj_117_lsj.dto.SoldDTO">
+		SELECT * 
+		FROM (SELECT A.*, rownum as rn 
+		 		FROM (SELECT * 
+						FROM mvc_outsold_tbl o JOIN mvc_product_tbl p ON o.pdno = p.pdno 
+						WHERE customerId = #{customerId}
+						ORDER BY soldNo DESC) A ) 
+	</select>
+	
+
+	
+
+</mapper>    

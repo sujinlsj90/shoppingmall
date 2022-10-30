@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.pj_117_lsj.dao.AdminDAO">  <!-- namespace="패키지명.인터페이스" -->
+
+	<!--주문신청 목록 --> 
+	<select id = "orderConfirmList" resultType = "com.spring.pj_117_lsj.dto.MyAccountDTO">
+		SELECT * 
+		FROM (SELECT A.*, rownum as rn  
+				FROM (SELECT * 
+		 				FROM mvc_orderList_tbl o JOIN mvc_product_tbl p ON o.pdno = p.pdno  
+					   WHERE orderState != '배송완료'
+					   ORDER BY orderNo DESC) A ) 
+	</select>
+	
+	<!-- 주문상태 변경 -->
+	<update id = "updateOrderState" parameterType="java.util.Map">
+		UPDATE mvc_orderList_tbl SET orderState = #{orderState} WHERE orderNo = #{orderNo}
+	</update>
+	
+	<!-- 구매완료 시 product_tbl에서 재고 감소 -->
+	<update id = "updatePDTQuantity" parameterType="int">
+		<![CDATA[
+		UPDATE mvc_product_tbl 
+		SET quantity = quantity -(select orderQuantity from mvc_orderlist_tbl where orderNo = #{orderNo})  
+		WHERE pdNo = (select pdNo from mvc_orderlist_tbl WHERE orderNo = #{orderNo})
+		]]>
+	</update>
+	
+	<!-- 주문승인 시 판매완료목록 Insert -->
+	<insert id ="AddoutSoldList" parameterType = "int">
+		INSERT INTO mvc_outsold_tbl(customerId, pdNo, soldOption,soldQuantity, soldTotal, soldState, soldDate) 
+		VALUES((SELECT customerId FROM mvc_orderList_tbl WHERE orderNo = #{orderNo}), 
+				(SELECT pdNo FROM mvc_orderList_tbl WHERE orderNo = #{orderNo}), 
+				(SELECT orderOption FROM mvc_orderList_tbl WHERE orderNo = #{orderNo}), 
+				(SELECT orderQuantity FROM mvc_orderList_tbl WHERE orderNo = #{orderNo}), 
+				(SELECT orderTotal FROM mvc_orderList_tbl WHERE orderNo = #{orderNo}), 
+				'거래완료', 
+				sysdate)
+	</insert>
+	
+	<!-- 주문승인 시 판매완료목록에서 삭제 -->
+	<delete id= "outSoldListDelete" parameterType="int">
+		DELETE FROM mvc_orderlist_tbl WHERE orderNo = #{orderNo}
+	</delete>
+	
+	<!-- 판매완료목록 -->
+	<select id = "outSoldListAd" resultType = "com.spring.pj_117_lsj.dto.SoldDTO">
+		SELECT *  
+		  FROM (SELECT A.*, rownum as rn  
+				 FROM (SELECT * 
+					 	 FROM mvc_outsold_tbl o JOIN mvc_product_tbl p ON o.pdno = p.pdno WHERE o.soldstate = '거래완료'  
+						ORDER BY soldNo DESC) A )
+	</select>
+	
+	<!-- 환불신청리스트 -->
+	<select id = "refundList" resultType = "com.spring.pj_117_lsj.dto.RefundDTO">
+		SELECT * 
+		FROM (SELECT A.*, rownum as rn 
+				FROM (SELECT * 
+						FROM mvc_refund_tbl o JOIN mvc_product_tbl p ON o.pdno = p.pdno WHERE refundState = '환불신청' 
+						ORDER BY refundNo DESC) A )
+	</select>
+	
+	<!-- 환불상태변경 -->
+	<update id = "updateRefundState" parameterType="int">
+		UPDATE mvc_refund_tbl SET refundState = '환불완료' WHERE refundNo = #{refundNo}
+	</update>
+	
+	<!-- 환불시재고반영 -->
+	
+	<update id = "minusPDTQuantity" parameterType="int">
+	<![CDATA[
+		UPDATE mvc_product_tbl 
+		SET quantity = quantity +(select refundQuantity from mvc_refund_tbl where refundNo = #{refundNo})  
+		WHERE pdNo = (select pdNo from mvc_refund_tbl where refundNo = #{refundNo})
+	]]>
+	</update>
+	
+	<!-- 환불완료목록 -->
+	<select id = "refundEndList" resultType = "com.spring.pj_117_lsj.dto.RefundDTO">
+		SELECT * 
+		FROM (SELECT A.*, rownum as rn 
+				FROM (SELECT * 
+						FROM mvc_refund_tbl o JOIN mvc_product_tbl p ON o.pdno = p.pdno WHERE refundState = '환불완료' 
+						ORDER BY refundNo DESC) A )
+	</select>
+	
+	<!-- 결산 -->
+	<select id = "balanceAction" resultType = "com.spring.pj_117_lsj.dto.BalanceDTO">
+		SELECT * FROM view_balance
+	</select>
+	
+	<!-- 결산차트 -->
+	<select id = "getbalanceChart" resultType = "com.spring.pj_117_lsj.dto.BalanceChartDTO">
+		SELECT * FROM view_balanceChart
+	</select>
+	
+	<!-- 회원정보 -->
+	<select id = "getMemberInfo" resultType = "com.spring.pj_117_lsj.dto.CustomerDTO">
+		SELECT * FROM mvc_customer_tbl
+	</select>
+	
+	
+</mapper>    

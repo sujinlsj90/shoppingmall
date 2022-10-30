@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+#container {
+   width:100%;
+   margin:0 auto;
+}
+
+#contents {
+   max-width: 1240px;
+   min-width: 1240px;
+   width: 100%;
+   margin: 0 auto;
+   min-height: 800px;
+   
+}
+
+#section2{
+   display: flex;
+   justify-contetn:space-between;
+}
+
+
+<!-- 우측 내용 시작 -->
+#right {
+	width: 88%;
+}
+
+input {
+	padding: 2px 2px;
+}
+
+.input {
+	width: 340px;
+	height: 35px;
+	border: 1px solid gray;
+	box-sizing: border-box;
+	padding: 0 0 0 10px;
+	size: 12pt;
+}
+
+.input_in {
+	width: 80px;
+	height: 20px;
+	border: 1px solid gray;
+	box-sizing: border-box;
+	padding: 0 0 0 10px;
+	size: 10pt;
+}
+
+
+
+#productlist_table {
+	width: 700px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+#productlist_table th {
+	font-size: 12px;
+}
+
+.product_img {
+	width: 80px;
+	height: 100px;
+}
+
+#product_Add th {
+	text-align: right;
+}
+
+#product_Add td {
+	text-align: center;
+}
+
+th {
+	vertical-align: middle;
+}
+td {
+	vertical-align: middle;
+}
+
+ 
+@media (max-width: 780px){
+    .box{box-sizing: border-box; padding: 0 10px;}
+    .table_product{text-align: center; }
+    .input {width: 290px; height: 33px;}
+    #product_Add td {text-align: left; }
+    #product_Add th {text-align: right; }
+    table tr td {margin-right: 5px; padding: 5px 0 0 5px; border : 0; font-size : 50%}
+    table tr th {margin-right: 5px; padding: 5px 0 0 5px; border : 0; font-size : 50%}
+    table option {margin-right: 5px; padding: 5px 0 0 5px; border : 0; font-size : 50%}
+    table input {margin-right: 5px; padding: 5px 0 0 5px; border : 0; font-size : 50%}
+    table select {margin-right: 5px; padding: 5px 0 0 5px; border : 0; font-size : 50%}
